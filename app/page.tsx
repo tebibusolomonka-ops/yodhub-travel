@@ -1,5 +1,6 @@
 import { ArrowRight, BriefcaseBusiness, CalendarDays, Check, FileCheck2, GraduationCap, MapPin, MessageCircle, Plane, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { OpportunityBrowser } from "@/components/opportunity-browser";
+import { TravelGlobe } from "@/components/travel-globe";
 
 const services = [
   { title: "Study abroad", copy: "University admissions and student visa guidance", icon: GraduationCap, count: "12 opportunities" },
@@ -65,17 +66,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative mx-auto hidden w-full max-w-[500px] lg:block">
-            <div className="absolute -inset-9 rounded-full border border-dashed border-[#e9a617]/35" />
-            <div className="brand-card relative overflow-hidden rounded-[2.5rem] border border-white/15 bg-white p-7 shadow-[0_40px_100px_rgba(0,0,0,.38)]">
-              <img src="/yodhub-logo.png" alt="Yodhub Travel — Explore, Discover, Experience" className="aspect-square w-full object-contain" />
-            </div>
-            <div className="absolute -bottom-8 -left-10 rounded-2xl border border-white/15 bg-[#0c2d5d]/90 p-4 shadow-2xl backdrop-blur-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#efb129]">Now open</p>
-              <p className="mt-1 font-bold">Italy · 2027 intake</p>
-              <p className="mt-1 text-sm text-white/60">Applications close 15 Nov</p>
-            </div>
-          </div>
+          <TravelGlobe />
         </div>
       </section>
 
