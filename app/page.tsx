@@ -1,13 +1,9 @@
-import { ArrowRight, BriefcaseBusiness, CalendarDays, Check, FileCheck2, GraduationCap, MapPin, MessageCircle, Plane, Send, ShieldCheck, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check, FileCheck2, MapPin, MessageCircle, Plane, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { OpportunityBrowser } from "@/components/opportunity-browser";
 import { TravelGlobe } from "@/components/travel-globe";
-
-const services = [
-  { title: "Study abroad", copy: "University admissions and student visa guidance", icon: GraduationCap, count: "12 opportunities" },
-  { title: "Work abroad", copy: "Verified pathways and document preparation", icon: BriefcaseBusiness, count: "6 opportunities" },
-  { title: "Visit & tourism", copy: "Clear visa support for your next journey", icon: Plane, count: "8 destinations" },
-  { title: "Conferences", copy: "Applications for global events and programs", icon: CalendarDays, count: "4 open calls" },
-];
+import { SiteHeader } from "@/components/site-header";
+import { services } from "@/lib/services";
 
 export default function Home() {
   return (
@@ -16,28 +12,7 @@ export default function Home() {
         <div className="hero-grid absolute inset-0 opacity-30" />
         <div className="route-glow absolute -right-40 top-16 h-[500px] w-[500px] rounded-full" />
 
-        <header className="relative z-20 mx-auto flex w-full max-w-[1240px] items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
-          <a href="#" className="flex items-center gap-3" aria-label="Yodhub Travel home">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#0b3973] shadow-lg shadow-black/10">
-              <Plane className="h-5 w-5 -rotate-12" aria-hidden="true" />
-            </span>
-            <span>
-              <span className="block text-lg font-extrabold tracking-[0.08em]">YODHUB</span>
-              <span className="block text-[10px] font-semibold tracking-[0.42em] text-[#e9a617]">TRAVEL</span>
-            </span>
-          </a>
-
-          <nav className="hidden items-center gap-8 text-sm font-medium text-white/75 lg:flex" aria-label="Primary navigation">
-            <a className="text-white" href="#opportunities">Opportunities</a>
-            <a className="transition hover:text-white" href="#services">Services</a>
-            <a className="transition hover:text-white" href="#process">How it works</a>
-            <a className="transition hover:text-white" href="#about">About us</a>
-          </nav>
-
-          <a href="#opportunities" className="hidden items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#0a2d5e] transition hover:bg-[#f1b233] sm:flex">
-            Explore opportunities <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
-        </header>
+        <SiteHeader overlay />
 
         <div className="relative z-10 mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 pb-36 pt-14 sm:px-8 lg:grid-cols-[1.08fr_.92fr] lg:px-10 lg:pt-20">
           <div className="max-w-[690px]">
@@ -52,12 +27,12 @@ export default function Home() {
               Find the right study, work, visit, or conference opportunity. Check every requirement and apply with confidence in one place.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#opportunities" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#eda91b] px-7 py-4 font-bold text-[#071c3c] shadow-[0_12px_34px_rgba(237,169,27,.26)] transition hover:-translate-y-0.5 hover:bg-[#f8bd40]">
+              <Link href="/opportunities" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#eda91b] px-7 py-4 font-bold text-[#071c3c] shadow-[0_12px_34px_rgba(237,169,27,.26)] transition hover:-translate-y-0.5 hover:bg-[#f8bd40]">
                 Find an opportunity <ArrowRight className="h-5 w-5" aria-hidden="true" />
-              </a>
-              <a href="#process" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/10">
+              </Link>
+              <Link href="/how-it-works" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/10">
                 See how it works
-              </a>
+              </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/70">
               <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Clear requirements</span>
@@ -72,16 +47,16 @@ export default function Home() {
 
       <section id="services" className="relative z-20 mx-auto -mt-20 w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
         <div className="grid overflow-hidden rounded-[1.6rem] border border-[#dce4ef] bg-white shadow-[0_20px_60px_rgba(8,35,76,.12)] md:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ title, copy, icon: Icon, count }, index) => (
-            <a key={title} href="#opportunities" className={`group p-6 transition hover:bg-[#f8fbff] ${index > 0 ? "border-t border-[#e4eaf2] md:border-l md:border-t-0" : ""} ${index === 2 ? "md:border-l-0 lg:border-l" : ""}`}>
+          {services.map(({ title, short, slug, icon: Icon }, index) => (
+            <Link key={title} href={`/services/${slug}`} className={`group p-6 transition hover:bg-[#f8fbff] ${index > 0 ? "border-t border-[#e4eaf2] md:border-l md:border-t-0" : ""} ${index === 2 ? "md:border-l-0 lg:border-l" : ""}`}>
               <div className="flex items-start justify-between">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaf2fb] text-[#0a4b91]"><Icon className="h-5 w-5" /></span>
                 <ArrowRight className="h-5 w-5 text-[#98a7ba] transition group-hover:translate-x-1 group-hover:text-[#d9960d]" />
               </div>
               <h2 className="mt-5 text-lg font-extrabold">{title}</h2>
-              <p className="mt-2 min-h-12 text-sm leading-6 text-[#64748b]">{copy}</p>
-              <p className="mt-4 text-xs font-bold uppercase tracking-[0.12em] text-[#b77a00]">{count}</p>
-            </a>
+              <p className="mt-2 min-h-12 text-sm leading-6 text-[#64748b]">{short}</p>
+              <p className="mt-4 text-xs font-bold uppercase tracking-[0.12em] text-[#b77a00]">Explore service</p>
+            </Link>
           ))}
         </div>
       </section>
@@ -94,7 +69,8 @@ export default function Home() {
           </div>
           <p className="max-w-md text-base leading-7 text-[#63758c]">Every listing shows the real checklist before you start. Save time, prepare properly, and submit when you are ready.</p>
         </div>
-        <OpportunityBrowser />
+        <OpportunityBrowser limit={4} />
+        <div className="mt-8 text-center"><Link href="/opportunities" className="inline-flex items-center gap-2 rounded-full border border-[#cdd8e5] bg-white px-6 py-3 font-extrabold text-[#0a4383] hover:bg-[#edf4fb]">See all opportunities <ArrowRight className="h-4 w-4" /></Link></div>
       </section>
 
       <section id="process" className="bg-[#071e42] py-24 text-white lg:py-32">
@@ -155,19 +131,11 @@ export default function Home() {
             <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f5c45c]">Ready when you are</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-[-0.03em] sm:text-4xl">Find an opportunity that fits your next move.</h2>
           </div>
-          <a href="#opportunities" className="inline-flex shrink-0 items-center gap-3 rounded-full bg-white px-7 py-4 font-extrabold text-[#08386f] transition hover:-translate-y-0.5">
+          <Link href="/opportunities" className="inline-flex shrink-0 items-center gap-3 rounded-full bg-white px-7 py-4 font-extrabold text-[#08386f] transition hover:-translate-y-0.5">
             Explore now <ArrowRight className="h-5 w-5" />
-          </a>
+          </Link>
         </div>
       </section>
-
-      <footer className="mt-16 border-t border-[#dce4ee] bg-white">
-        <div className="mx-auto flex w-full max-w-[1240px] flex-col gap-6 px-5 py-8 text-sm text-[#64748b] sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
-          <div className="flex items-center gap-3 font-black text-[#071e42]"><Plane className="h-5 w-5 text-[#c68608]" /> YODHUB TRAVEL</div>
-          <p>Explore · Discover · Experience</p>
-          <p>Mock website · Application information is illustrative</p>
-        </div>
-      </footer>
     </main>
   );
 }

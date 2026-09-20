@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, MapPin, Plane, WalletCards } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, MapPin, WalletCards } from "lucide-react";
 import { getOpportunity, opportunities } from "@/lib/opportunities";
+import { SiteHeader } from "@/components/site-header";
 
 export function generateStaticParams() {
   return opportunities.map((item) => ({ slug: item.slug }));
@@ -14,15 +15,10 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
 
   return (
     <main className="min-h-screen bg-[#f4f7fb] text-[#071e42]">
-      <header className="border-b border-white/10 bg-[#071e42] text-white">
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-5 sm:px-8">
-          <Link href="/" className="flex items-center gap-3 font-black tracking-[0.08em]"><Plane className="h-5 w-5 text-[#e9a617]" />YODHUB <span className="text-[#e9a617]">TRAVEL</span></Link>
-          <Link href="/#opportunities" className="flex items-center gap-2 text-sm font-bold text-white/75 hover:text-white"><ArrowLeft className="h-4 w-4" /> All opportunities</Link>
-        </div>
-      </header>
-
-      <section className="bg-[#071e42] pb-28 pt-14 text-white">
+      <section className="bg-[#071e42] pb-28 text-white">
+        <SiteHeader overlay />
         <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+          <Link href="/opportunities" className="mb-7 mt-10 inline-flex items-center gap-2 text-sm font-bold text-white/65 hover:text-white"><ArrowLeft className="h-4 w-4" /> All opportunities</Link>
           <div className="flex items-center gap-3 text-sm font-bold text-[#e9b13c]"><span className="text-3xl">{item.flag}</span>{item.type}</div>
           <h1 className="mt-5 max-w-4xl text-4xl font-black tracking-[-0.045em] sm:text-6xl">{item.title}</h1>
           <p className="mt-4 text-lg text-[#b7c8dc]">{item.institution} · {item.country}</p>
@@ -66,11 +62,10 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
               <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><WalletCards className="h-4 w-4" /> Fee</span><strong className="text-right">{item.fee}</strong></div>
             </div>
             <Link href={`/apply/${item.slug}`} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#edaa1d] px-6 py-4 font-black text-[#071e42] transition hover:bg-[#f7bd43]">Start application <ArrowRight className="h-4 w-4" /></Link>
-            <p className="mt-4 text-center text-xs leading-5 text-white/55">This demo saves no personal information.</p>
+            <p className="mt-4 text-center text-xs leading-5 text-white/55">Mock application only. No documents or personal information are stored.</p>
           </div>
         </aside>
       </div>
     </main>
   );
 }
-

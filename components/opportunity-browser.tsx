@@ -6,14 +6,14 @@ import { ArrowRight, CalendarDays, MapPin, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { opportunities } from "@/lib/opportunities";
 
-export function OpportunityBrowser() {
+export function OpportunityBrowser({ limit }: { limit?: number }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("All services");
 
   const filtered = useMemo(() => opportunities.filter((item) => {
     const matchesQuery = `${item.title} ${item.country} ${item.institution}`.toLowerCase().includes(query.toLowerCase());
     return matchesQuery && (type === "All services" || item.type === type);
-  }), [query, type]);
+  }).slice(0, limit ?? opportunities.length), [query, type, limit]);
 
   useEffect(() => {
     const modelContext = (document as Document & {
