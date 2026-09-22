@@ -8,7 +8,6 @@ export type Opportunity = {
   institution: string;
   deadline: string;
   intake: string;
-  duration: string;
   fee: string;
   featured?: boolean;
   // Kept out of the public site until the listing is verified.
@@ -32,7 +31,6 @@ const allOpportunities: Opportunity[] = [
     institution: "Italian universities & programs",
     deadline: "Contact us for the current intake",
     intake: "Next academic intake",
-    duration: "Bachelor's & Master's",
     fee: "Full tuition fee covered",
     featured: true,
     description: "Study in Italy with financial support. The scholarship covers the full tuition fee for bachelor's and master's programs, with accommodation support, meal support, and a monthly stipend. Yodhub guides you from document preparation to visa application.",
@@ -55,7 +53,6 @@ const allOpportunities: Opportunity[] = [
     institution: "Multiple universities & programs",
     deadline: "Contact us for the current intake",
     intake: "2026/27 academic year",
-    duration: "Depends on program",
     fee: "Fully funded & partial",
     featured: true,
     description: "Study in China with fully funded and partial scholarship opportunities at various universities across the country. Open to high school graduates through master's degree holders, with a short document list and guided application process.",
@@ -79,7 +76,6 @@ const allOpportunities: Opportunity[] = [
     institution: "Funded by the Czech Government",
     deadline: "Contact us for the next round",
     intake: "Next academic year",
-    duration: "2–3 years",
     fee: "Fully funded",
     description: "A fully funded Czech Government scholarship for students from developing countries to complete a master's or PhD degree at Czech public universities. Programs are offered in English and Czech, and funding is also available for a one-year Czech language course.",
     highlights: [
@@ -102,7 +98,6 @@ const allOpportunities: Opportunity[] = [
     institution: "Direct company connection",
     deadline: "Rolling applications",
     intake: "2–3 months processing",
-    duration: "2-year contract",
     fee: "$541 – $1,783 / month",
     // Hidden until the client confirms the employer's name and contract (matches the Alabuga Start recruitment pattern).
     hidden: true,
@@ -127,7 +122,6 @@ const allOpportunities: Opportunity[] = [
     institution: "Approved employers",
     deadline: "Rolling applications",
     intake: "Fast processing",
-    duration: "Long-term",
     fee: "Competitive pay",
     description: "Work and live in Belarus. Our work visa service connects skilled and unskilled workers with approved employers, handles the work permit and visa process, and takes the stress out of relocation.",
     highlights: [

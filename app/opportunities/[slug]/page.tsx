@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, Gift, MapPin, Phone, Send, UserCheck, WalletCards } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, Gift, Globe2, MapPin, Phone, Send, Tag, UserCheck, WalletCards } from "lucide-react";
 import { contact } from "@/lib/contact";
 import { getOpportunity, opportunities } from "@/lib/opportunities";
 import { SiteHeader } from "@/components/site-header";
@@ -82,7 +82,8 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
           <div className="rounded-[1.75rem] bg-[#0a4383] p-6 text-white shadow-[0_20px_55px_rgba(6,35,75,.22)]">
             <p className="text-sm font-bold text-[#bcd0e6]">Application overview</p>
             <div className="mt-5 space-y-4 border-y border-white/15 py-5">
-              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><Clock3 className="h-4 w-4" /> Duration</span><strong>{item.duration}</strong></div>
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><Globe2 className="h-4 w-4" /> Destination</span><strong className="text-right">{item.flag} {item.country}</strong></div>
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><Tag className="h-4 w-4" /> Type</span><strong className="text-right">{item.type}</strong></div>
               <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><WalletCards className="h-4 w-4" /> Fee</span><strong className="text-right">{item.fee}</strong></div>
             </div>
             <Link href={`/apply/${item.slug}`} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#edaa1d] px-6 py-4 font-black text-[#071e42] transition hover:bg-[#f7bd43]">Start application <ArrowRight className="h-4 w-4" /></Link>
