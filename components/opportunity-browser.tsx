@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, MapPin, Search } from "lucide-react";
+import { ArrowRight, CalendarDays, Search, WalletCards } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { opportunities } from "@/lib/opportunities";
 
@@ -90,7 +90,7 @@ export function OpportunityBrowser({ limit }: { limit?: number }) {
             <p className="mt-2 text-sm leading-6 text-[#64748b]">{item.institution}</p>
             <div className="mt-6 grid grid-cols-2 gap-3 border-y border-[#edf1f6] py-5 text-sm">
               <span className="flex items-center gap-2 text-[#52667e]"><CalendarDays className="h-4 w-4 text-[#ba7b00]" />{item.deadline}</span>
-              <span className="flex items-center gap-2 text-[#52667e]"><MapPin className="h-4 w-4 text-[#ba7b00]" />{item.intake}</span>
+              <span className="flex items-center gap-2 text-[#52667e]"><WalletCards className="h-4 w-4 text-[#ba7b00]" />{item.fee}</span>
             </div>
             <Link href={`/opportunities/${item.slug}`} className="mt-6 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">
               View requirements <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />

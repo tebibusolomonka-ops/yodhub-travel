@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail, MapPin, Plane, Send } from "lucide-react";
+import { ArrowUpRight, MapPin, Phone, Plane, Send } from "lucide-react";
+import { contact } from "@/lib/contact";
+import { proofsReady } from "@/lib/proofs";
 
 const columns = [
-  { title: "Explore", links: [["Opportunities", "/opportunities"], ["Services", "/services"], ["How it works", "/how-it-works"], ["FAQs", "/faq"]] },
+  { title: "Explore", links: [["Opportunities", "/opportunities"], ...(proofsReady ? [["Visa results", "/visa-results"]] : []), ["Services", "/services"], ["How it works", "/how-it-works"], ["FAQs", "/faq"]] },
   { title: "Services", links: [["Study abroad", "/services/study-abroad"], ["Work abroad", "/services/work-abroad"], ["Visit & tourism", "/services/visit-tourism"], ["Conferences", "/services/conferences"]] },
   { title: "Company", links: [["About Yodhub", "/about"], ["Contact", "/contact"], ["Privacy", "/privacy"]] },
 ];
@@ -16,11 +18,12 @@ export function SiteFooter() {
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#0a3975]"><Plane className="h-5 w-5 -rotate-12" /></span>
             <span><span className="block text-lg font-black tracking-[.09em]">YODHUB</span><span className="block text-[10px] font-bold tracking-[.42em] text-[#e4a31b]">TRAVEL</span></span>
           </Link>
-          <p className="mt-6 max-w-sm text-base leading-7 text-[#a9bad0]">Clear opportunities, clear requirements, and one guided path from interest to application.</p>
+          <p className="mt-6 max-w-sm text-base leading-7 text-[#a9bad0]">Affordable agent service. Study, work, visit, and conference travel, with all the guidance handled on your behalf.</p>
           <div className="mt-7 space-y-3 text-sm text-[#b9c7d8]">
             <p className="flex items-center gap-3"><MapPin className="h-4 w-4 text-[#e4a31b]" /> Addis Ababa, Ethiopia</p>
-            <p className="flex items-center gap-3"><Mail className="h-4 w-4 text-[#e4a31b]" /> info@yodhub.example</p>
-            <p className="flex items-center gap-3"><Send className="h-4 w-4 text-[#e4a31b]" /> Telegram Mini App coming next</p>
+            <a href={contact.phoneHref} className="flex items-center gap-3 hover:text-white"><Phone className="h-4 w-4 text-[#e4a31b]" /> {contact.phone}</a>
+            <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-white"><Send className="h-4 w-4 text-[#e4a31b]" /> {contact.telegram}</a>
+            {contact.channels.map((channel) => <a key={channel.href} href={channel.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-white"><Send className="h-4 w-4 text-[#e4a31b]" /> {channel.label}</a>)}
           </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
@@ -36,8 +39,8 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-5 py-6 text-xs text-white/50 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
-          <p>© 2026 Yodhub Travel. Mock website for product development.</p>
-          <p>No documents are collected or stored in this version.</p>
+          <p>© 2026 Yodhub Travel. Affordable agent service, all guidance on your behalf.</p>
+          <p>This website doesn&apos;t collect or store your documents.</p>
         </div>
       </div>
     </footer>

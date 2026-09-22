@@ -126,7 +126,7 @@ body {
 .globe-stage:active { cursor: grabbing; }
 .globe-stage canvas { position: absolute; inset: 0; display: block; width: 100% !important; height: 100% !important; }
 .globe-halo { position: absolute; inset: 4%; z-index: -1; border-radius: 50%; background: radial-gradient(circle, #126ba32b 30%, #1773ba14 56%, transparent 72%); box-shadow: 0 0 100px #0c65ac12; }
-.globe-label { position: absolute; pointer-events: none; transform: translate(10px, -50%); color: #e8f2ff; font-size: 12px; font-weight: 600; text-shadow: 0 1px 5px #061a3b, 0 1px 9px #061a3b; transition: opacity .3s; white-space: nowrap; }
+.globe-label { position: absolute; pointer-events: none; transform: translate(10px, -50%); color: #e8f2ff; font-size: 11px; font-weight: 600; text-shadow: 0 1px 5px #061a3b, 0 1px 9px #061a3b; transition: opacity .3s; white-space: nowrap; }
 .globe-label-origin { transform: translate(12px, 4px); color: #ffe29a; font-size: 13px; font-weight: 800; letter-spacing: .1em; }
 .globe-caption { display: flex; align-items: center; justify-content: center; gap: 10px; color: #d1e0f0; font-size: 12px; font-weight: 700; letter-spacing: .15em; }
 .globe-origin-dot { width: 6px; height: 6px; border-radius: 50%; background: #efb342; box-shadow: 0 0 12px #efb34277; }
@@ -135,4 +135,4 @@ body {
 .globe-toggle:hover { background: #ffffff15; }
 .globe-toggle:focus-visible { outline: 2px solid #efb342; outline-offset: 3px; }
 .globe-loading { position: absolute; inset: 0 0 50px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; color: #b7cde7; font-size: 14px; }
-@media (max-width: 639px) { .travel-globe { max-width: 390px; } .globe-label { font-size: 12px; } .globe-label-origin { font-size: 12px; } }
+@media (max-width: 639px) { .travel-globe { max-width: 390px; } .globe-label { font-size: 10px; } .globe-label-origin { font-size: 12px; } }

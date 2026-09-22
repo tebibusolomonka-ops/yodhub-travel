@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Check, FileCheck2, MapPin, MessageCircle, Plane, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { OpportunityBrowser } from "@/components/opportunity-browser";
+import { ProofGallery } from "@/components/proof-gallery";
+import { proofsReady } from "@/lib/proofs";
 import { TravelGlobe } from "@/components/travel-globe";
 import { SiteHeader } from "@/components/site-header";
 import { services } from "@/lib/services";
+import { contact } from "@/lib/contact";
 
 export default function Home() {
   return (
@@ -24,7 +27,7 @@ export default function Home() {
               Your journey<br />starts <span className="gold-text">here.</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-8 text-[#c9d6e8] sm:text-xl">
-              Find the right study, work, visit, or conference opportunity. Check every requirement and apply with confidence in one place.
+              Study, work, visit, or attend a conference abroad. An affordable agent service that handles all the guidance on your behalf.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/opportunities" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#eda91b] px-7 py-4 font-bold text-[#071c3c] shadow-[0_12px_34px_rgba(237,169,27,.26)] transition hover:-translate-y-0.5 hover:bg-[#f8bd40]">
@@ -35,9 +38,9 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/70">
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Clear requirements</span>
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Secure documents</span>
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Progress updates</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Affordable service</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Guidance on your behalf</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4b32b]" /> Real visa results</span>
             </div>
           </div>
 
@@ -47,7 +50,7 @@ export default function Home() {
 
       <section id="services" className="relative z-20 mx-auto -mt-20 w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
         <div className="grid overflow-hidden rounded-[1.6rem] border border-[#dce4ef] bg-white shadow-[0_20px_60px_rgba(8,35,76,.12)] md:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ title, short, slug, icon: Icon }, index) => (
+          {services.map(({ title, short, slug, destinations, icon: Icon }, index) => (
             <Link key={title} href={`/services/${slug}`} className={`group p-6 transition hover:bg-[#f8fbff] ${index > 0 ? "border-t border-[#e4eaf2] md:border-l md:border-t-0" : ""} ${index === 2 ? "md:border-l-0 lg:border-l" : ""}`}>
               <div className="flex items-start justify-between">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#eaf2fb] text-[#0a4b91]"><Icon className="h-5 w-5" /></span>
@@ -55,6 +58,7 @@ export default function Home() {
               </div>
               <h2 className="mt-5 text-lg font-extrabold">{title}</h2>
               <p className="mt-2 min-h-12 text-sm leading-6 text-[#64748b]">{short}</p>
+              <p className="mt-3 text-sm leading-6" aria-label="Destinations">{destinations.map((place) => place.split(" ")[0]).join(" ")}</p>
               <p className="mt-4 text-xs font-bold uppercase tracking-[0.12em] text-[#b77a00]">Explore service</p>
             </Link>
           ))}
@@ -73,6 +77,20 @@ export default function Home() {
         <div className="mt-8 text-center"><Link href="/opportunities" className="inline-flex items-center gap-2 rounded-full border border-[#cdd8e5] bg-white px-6 py-3 font-extrabold text-[#0a4383] hover:bg-[#edf4fb]">See all opportunities <ArrowRight className="h-4 w-4" /></Link></div>
       </section>
 
+      {proofsReady && <section id="visa-results" className="border-t border-[#dce5ef] bg-white">
+        <div className="mx-auto w-full max-w-[1240px] px-5 py-24 sm:px-8 lg:px-10 lg:py-28">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-[#b77900]">Visa results</p>
+              <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-[-0.04em] text-[#071e42] sm:text-5xl">Approved visas from our clients.</h2>
+            </div>
+            <p className="max-w-md text-base leading-7 text-[#63758c]">Study, tourist, and business visas for Italy, Greece, Türkiye, Russia, and China. Personal details are blurred to protect every client.</p>
+          </div>
+          <ProofGallery limit={3} />
+          <div className="mt-8 text-center"><Link href="/visa-results" className="inline-flex items-center gap-2 rounded-full border border-[#cdd8e5] bg-white px-6 py-3 font-extrabold text-[#0a4383] hover:bg-[#edf4fb]">See all visa results <ArrowRight className="h-4 w-4" /></Link></div>
+        </div>
+      </section>}
+
       <section id="process" className="bg-[#071e42] py-24 text-white lg:py-32">
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
           <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
@@ -83,9 +101,12 @@ export default function Home() {
               <div className="mt-9 rounded-2xl border border-white/12 bg-white/5 p-5">
                 <div className="flex items-center gap-3">
                   <MessageCircle className="h-5 w-5 text-[#f1b233]" />
-                  <p className="font-bold">Coming next: Telegram Mini App</p>
+                  <p className="font-bold">Join us on Telegram</p>
                 </div>
-                <p className="mt-2 text-sm leading-6 text-white/60">The same application experience will open directly from each Telegram post.</p>
+                <p className="mt-2 text-sm leading-6 text-white/60">New opportunities are posted on the channel first.</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {contact.channels.map((channel) => <a key={channel.href} href={channel.href} target="_blank" rel="noreferrer" className="rounded-full bg-white/10 px-4 py-2 text-sm font-bold transition hover:bg-white/20">{channel.label}</a>)}
+                </div>
               </div>
             </div>
             <ol className="grid gap-4 sm:grid-cols-2">

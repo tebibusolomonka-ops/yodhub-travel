@@ -4,12 +4,31 @@ import { useEffect, useRef, useState } from "react";
 import { Globe2, Pause, Play } from "lucide-react";
 
 type Country = { properties: { ADMIN: string }; geometry: { type: string; coordinates: number[][][] | number[][][][] } };
+// `countries` holds the ADMIN names used in globe-countries.geojson so the country is highlighted.
+// Small central-European destinations skip the text label so it doesn't pile up; they keep their dot and route.
 const destinations = [
-  { name: "Italy", lat: 43.62, lon: 13.52 },
-  { name: "Germany", lat: 52.52, lon: 13.4 },
-  { name: "Russia", lat: 55.76, lon: 37.62 },
-  { name: "UAE", lat: 25.2, lon: 55.27 },
+  { name: "USA", lat: 40.71, lon: -74.01, countries: ["United States of America"] },
+  { name: "Canada", lat: 43.65, lon: -79.38, countries: ["Canada"] },
+  { name: "UK", lat: 51.51, lon: -0.13, countries: ["United Kingdom"] },
+  { name: "France", lat: 48.86, lon: 2.35, countries: ["France"] },
+  { name: "Germany", lat: 52.52, lon: 13.4, countries: ["Germany"] },
+  { name: "Italy", lat: 41.9, lon: 12.5, countries: ["Italy"] },
+  { name: "Austria", lat: 48.21, lon: 16.37, countries: ["Austria"], label: false },
+  { name: "Czechia", lat: 50.08, lon: 14.44, countries: ["Czechia", "Czech Republic"], label: false },
+  { name: "Greece", lat: 37.98, lon: 23.73, countries: ["Greece"] },
+  { name: "Serbia", lat: 44.79, lon: 20.45, countries: ["Republic of Serbia", "Serbia"], label: false },
+  { name: "Albania", lat: 41.33, lon: 19.82, countries: ["Albania"], label: false },
+  { name: "Belarus", lat: 53.9, lon: 27.56, countries: ["Belarus"], label: false },
+  { name: "Russia", lat: 55.76, lon: 37.62, countries: ["Russia"] },
+  { name: "Turkey", lat: 41.01, lon: 28.98, countries: ["Turkey", "Türkiye"] },
+  { name: "Dubai", lat: 25.2, lon: 55.27, countries: ["United Arab Emirates"] },
+  { name: "India", lat: 28.61, lon: 77.21, countries: ["India"] },
+  { name: "China", lat: 39.9, lon: 116.4, countries: ["China"] },
+  { name: "Thailand", lat: 13.76, lon: 100.5, countries: ["Thailand"] },
+  { name: "Japan", lat: 35.68, lon: 139.69, countries: ["Japan"] },
+  { name: "Australia", lat: -33.87, lon: 151.21, countries: ["Australia"] },
 ];
+const destinationCountries = new Set(destinations.flatMap((destination) => destination.countries));
 
 export function TravelGlobe() {
   const container = useRef<HTMLDivElement>(null);
@@ -62,8 +81,9 @@ export function TravelGlobe() {
       ctx.fillStyle = "#071c35"; ctx.fillRect(0, 0, map.width, map.height);
       for (const country of data.features) {
         const polygons = country.geometry.type === "Polygon" ? [country.geometry.coordinates as number[][][]] : country.geometry.coordinates as number[][][][];
-        ctx.fillStyle = country.properties.ADMIN === "Ethiopia" ? "#e9b34b" : "#245a7d";
-        ctx.strokeStyle = country.properties.ADMIN === "Ethiopia" ? "#ffe9a7" : "#4381a0";
+        const isDestination = destinationCountries.has(country.properties.ADMIN);
+        ctx.fillStyle = country.properties.ADMIN === "Ethiopia" ? "#e9b34b" : isDestination ? "#3f86b3" : "#245a7d";
+        ctx.strokeStyle = country.properties.ADMIN === "Ethiopia" ? "#ffe9a7" : isDestination ? "#8cc6e6" : "#4381a0";
         ctx.lineWidth = country.properties.ADMIN === "Ethiopia" ? 2.5 : 0.8;
         for (const polygon of polygons) {
           ctx.beginPath();
@@ -95,22 +115,23 @@ export function TravelGlobe() {
       for (let lon = -180; lon < 180; lon += 30) earth.add(line(Array.from({ length: 91 }, (_, i) => position(i * 2 - 90, lon, 1.002)), 0x5c9ac0, 0.11));
 
       const labels: { element: HTMLSpanElement; point: import("three").Vector3 }[] = [];
-      const marker = (name: string, lat: number, lon: number, origin = false) => {
+      const marker = (name: string, lat: number, lon: number, origin = false, showLabel = true) => {
         const point = position(lat, lon, 1.018);
-        const geometry = new THREE.SphereGeometry(origin ? 0.022 : 0.013, 16, 12);
+        const geometry = new THREE.SphereGeometry(origin ? 0.022 : 0.011, 16, 12);
         const material = new THREE.MeshBasicMaterial({ color: origin ? 0xffd76d : 0xffca57 });
         geometries.push(geometry); materials.push(material);
         const mesh = new THREE.Mesh(geometry, material); mesh.position.copy(point); earth.add(mesh);
+        if (!showLabel) return point;
         const element = document.createElement("span"); element.className = origin ? "globe-label globe-label-origin" : "globe-label";
         element.textContent = name; element.setAttribute("aria-hidden", "true"); host.appendChild(element);
         labels.push({ element, point }); return point;
       };
       const origin = marker("ETHIOPIA", 9.03, 38.75, true);
       const routes = destinations.map((destination, index) => {
-        const end = marker(destination.name, destination.lat, destination.lon);
+        const end = marker(destination.name, destination.lat, destination.lon, false, destination.label !== false);
         const startNormal = origin.clone().normalize(), endNormal = end.clone().normalize();
         const angle = startNormal.angleTo(endNormal);
-        const routePoint = (t: number) => startNormal.clone().multiplyScalar(Math.sin((1 - t) * angle) / Math.sin(angle)).addScaledVector(endNormal, Math.sin(t * angle) / Math.sin(angle)).normalize().multiplyScalar(1.022 + Math.sin(t * Math.PI) * (0.13 + index * 0.025));
+        const routePoint = (t: number) => startNormal.clone().multiplyScalar(Math.sin((1 - t) * angle) / Math.sin(angle)).addScaledVector(endNormal, Math.sin(t * angle) / Math.sin(angle)).normalize().multiplyScalar(1.022 + Math.sin(t * Math.PI) * (0.05 + angle * 0.1));
         const curve = new THREE.CatmullRomCurve3(Array.from({ length: 65 }, (_, i) => routePoint(i / 64)));
         const geometry = new THREE.TubeGeometry(curve, 80, 0.003, 5, false);
         const material = new THREE.MeshBasicMaterial({ color: 0xe9ab34, transparent: true, opacity: 0.75 });
@@ -118,7 +139,7 @@ export function TravelGlobe() {
         const beadGeometry = new THREE.SphereGeometry(0.009, 12, 8), beadMaterial = new THREE.MeshBasicMaterial({ color: 0xfff0ba });
         geometries.push(beadGeometry); materials.push(beadMaterial);
         const bead = new THREE.Mesh(beadGeometry, beadMaterial); earth.add(bead);
-        return { bead, routePoint, offset: index * 0.22 };
+        return { bead, routePoint, offset: index * 0.137 };
       });
 
       let frame = 0, previous = 0, elapsed = 0, visible = true, dragging = false, pointerX = 0;
@@ -160,7 +181,7 @@ export function TravelGlobe() {
   }, []);
 
   return (
-    <figure className="travel-globe" aria-label="Rotating 3D globe with Ethiopia highlighted and routes to Italy, Germany, Russia, and the United Arab Emirates">
+    <figure className="travel-globe" aria-label={`Rotating 3D globe with routes from Ethiopia to ${destinations.length} destinations: ${destinations.map((destination) => destination.name).join(", ")}`}>
       <div className="globe-halo" aria-hidden="true" />
       <div ref={container} className="globe-stage" />
       {!ready && <div className="globe-loading" role="status"><Globe2 className="h-14 w-14 text-[#e9b34b]" /><span>{failed ? "From Ethiopia to the world" : "Exploring the world…"}</span></div>}

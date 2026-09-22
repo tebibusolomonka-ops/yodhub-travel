@@ -24,7 +24,7 @@ export default async function ApplyPage({ params }: { params: Promise<{ slug: st
           <p className="mt-4 text-xs font-black uppercase tracking-[0.15em] text-[#ac7200]">{item.type}</p>
           <h2 className="mt-2 text-2xl font-black tracking-[-0.025em] text-[#071e42]">{item.title}</h2>
           <p className="mt-2 text-sm leading-6 text-[#65788e]">{item.institution}<br />{item.country}</p>
-          <div className="mt-6 rounded-xl bg-[#e8f0fa] p-4 text-sm leading-6 text-[#52677e]">This prototype uses mock data. Document upload is disabled and no form information is stored.</div>
+          <div className="mt-6 rounded-xl bg-[#e8f0fa] p-4 text-sm leading-6 text-[#52677e]">Your answers stay on your device until you send them to Yodhub on Telegram. Don&apos;t send documents until we ask for them.</div>
         </aside>
         <ApplicationForm opportunity={item} />
       </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, MapPin, WalletCards } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, Gift, MapPin, Phone, Send, UserCheck, WalletCards } from "lucide-react";
+import { contact } from "@/lib/contact";
 import { getOpportunity, opportunities } from "@/lib/opportunities";
 import { SiteHeader } from "@/components/site-header";
 
@@ -36,7 +37,30 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
           <section className="pt-9">
             <h2 className="text-2xl font-black">About this opportunity</h2>
             <p className="mt-4 max-w-3xl text-base leading-8 text-[#5e728a]">{item.description}</p>
+            {item.highlights && (
+              <dl className="mt-7 grid gap-3 sm:grid-cols-3">
+                {item.highlights.map(({ label, value }) => <div key={label} className="rounded-xl border border-[#f1dca6] bg-[#fffaf0] p-4"><dt className="text-xs font-bold uppercase tracking-wider text-[#9b6800]">{label}</dt><dd className="mt-1 text-lg font-black">{value}</dd></div>)}
+              </dl>
+            )}
           </section>
+
+          {item.benefits && (
+            <section className="pt-10">
+              <h2 className="text-2xl font-black">What&apos;s included</h2>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {item.benefits.map((benefit) => <li key={benefit} className="flex items-start gap-3 rounded-xl bg-[#f3f7fb] p-4 font-semibold"><Gift className="mt-0.5 h-5 w-5 shrink-0 text-[#bd7c00]" />{benefit}</li>)}
+              </ul>
+            </section>
+          )}
+
+          {item.eligibility && (
+            <section className="pt-10">
+              <h2 className="text-2xl font-black">Who can apply</h2>
+              <ul className="mt-6 flex flex-wrap gap-3">
+                {item.eligibility.map((rule) => <li key={rule} className="flex items-center gap-2 rounded-full border border-[#cfdcea] bg-white px-4 py-2 font-bold text-[#17375d]"><UserCheck className="h-4 w-4 text-[#0a4b91]" />{rule}</li>)}
+              </ul>
+            </section>
+          )}
 
           <section className="pt-10">
             <h2 className="text-2xl font-black">What you need</h2>
@@ -62,7 +86,13 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
               <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><WalletCards className="h-4 w-4" /> Fee</span><strong className="text-right">{item.fee}</strong></div>
             </div>
             <Link href={`/apply/${item.slug}`} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#edaa1d] px-6 py-4 font-black text-[#071e42] transition hover:bg-[#f7bd43]">Start application <ArrowRight className="h-4 w-4" /></Link>
-            <p className="mt-4 text-center text-xs leading-5 text-white/55">Mock application only. No documents or personal information are stored.</p>
+            <p className="mt-4 text-center text-xs leading-5 text-white/55">Takes about 3 minutes. You&apos;ll send it to us on Telegram.</p>
+          </div>
+          <div className="mt-5 rounded-[1.5rem] border border-[#dde6f0] bg-white p-6">
+            <p className="font-black">Prefer to talk first?</p>
+            <p className="mt-1 text-sm text-[#63768c]">Contact Yodhub Travel for application guidance.</p>
+            <a href={contact.phoneHref} className="mt-4 flex items-center gap-3 font-bold text-[#0a4383]"><Phone className="h-4 w-4 text-[#bd7c00]" />{contact.phone}</a>
+            <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="mt-3 flex items-center gap-3 font-bold text-[#0a4383]"><Send className="h-4 w-4 text-[#bd7c00]" />{contact.telegram}</a>
           </div>
         </aside>
       </div>

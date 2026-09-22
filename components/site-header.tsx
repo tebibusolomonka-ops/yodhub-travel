@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Menu, Plane } from "lucide-react";
+import { proofsReady } from "@/lib/proofs";
 
 const links = [
   { href: "/opportunities", label: "Opportunities" },
+  ...(proofsReady ? [{ href: "/visa-results", label: "Visa results" }] : []),
   { href: "/services", label: "Services" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/about", label: "About us" },
