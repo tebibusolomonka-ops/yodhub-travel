@@ -2,7 +2,7 @@
 // barcodes and machine-readable lines are blurred before an image is added here.
 // Set to true once the blurred images are in /public/proofs. While false, the
 // Visa results page, nav link, and homepage section stay hidden.
-export const proofsReady = false;
+export const proofsReady = true;
 
 export type Proof = {
   image: string;
