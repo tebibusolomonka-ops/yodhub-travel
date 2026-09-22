@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SiteFooter } from "@/components/site-footer";
+import { TelegramFab } from "@/components/telegram-fab";
 
 export const metadata: Metadata = {
-  title: "Yodhub Travel | Explore Global Opportunities",
-  description: "Explore study, work, visit, and conference opportunities with clear requirements and guided applications.",
+  title: "Yodhub Travel | Study, Work & Visit Abroad",
+  description: "Affordable agent service from Addis Ababa for study, work, visit, and conference travel, with all the guidance handled on your behalf.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+  openGraph: {
+    title: "Yodhub Travel",
+    description: "Study, work, visit, and conference travel with all the guidance handled on your behalf.",
+    images: ["/yodhub-logo-full.png"],
   },
 };
 
@@ -21,6 +28,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <SiteFooter />
+        <TelegramFab />
       </body>
     </html>
   );

@@ -1,13 +1,23 @@
 import Link from "next/link";
-import { ArrowRight, Check, Compass, Eye, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Compass, Eye, MapPin, ShieldCheck } from "lucide-react";
 import { InnerHero } from "@/components/inner-hero";
+import { destinations } from "@/lib/destinations";
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#f4f7fb] text-[#071e42]">
       <InnerHero eyebrow="About Yodhub" title="Affordable travel guidance, handled for you." copy="Yodhub Travel is an Addis Ababa agent for study, work, visit, and conference travel. We handle all the guidance on your behalf, at a fair price." />
       <section className="mx-auto grid w-full max-w-[1180px] gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:py-28">
-        <div className="rounded-[2rem] bg-[#e6eef8] p-7 sm:p-10"><img src="/yodhub-logo.png" alt="Yodhub Travel — Explore, Discover, Experience" className="aspect-square w-full object-contain mix-blend-multiply" /></div>
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0a4b91] to-[#061a3b] p-7 text-white sm:p-10">
+          <div className="hero-grid absolute inset-0 opacity-30" />
+          <div className="relative">
+            <p className="flex items-center gap-2 text-sm font-bold text-[#f5c45c]"><MapPin className="h-4 w-4" /> Based in Addis Ababa</p>
+            <p className="mt-3 text-3xl font-black tracking-[-0.03em]">Helping people reach {destinations.length} countries and counting.</p>
+            <ul className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-4">
+              {destinations.map((place) => <li key={place.country} className="flex flex-col items-center gap-1 rounded-2xl bg-white/[.07] p-3 text-center transition hover:bg-white/15"><span className="text-3xl" aria-hidden="true">{place.flag}</span><span className="text-xs font-bold text-white/80">{place.country.replace(" (Schengen)", "")}</span></li>)}
+            </ul>
+          </div>
+        </div>
         <div className="flex flex-col justify-center">
           <p className="text-sm font-black uppercase tracking-[.17em] text-[#b77900]">Our approach</p>
           <h2 className="mt-4 text-4xl font-black tracking-[-.04em]">Know what is required before you commit.</h2>

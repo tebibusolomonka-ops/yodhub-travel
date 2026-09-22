@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Phone, Plane, Send } from "lucide-react";
+import { ArrowUpRight, MapPin, Phone, Send } from "lucide-react";
 import { contact } from "@/lib/contact";
 import { proofsReady } from "@/lib/proofs";
 
@@ -14,9 +14,8 @@ export function SiteFooter() {
     <footer className="bg-[#05152f] text-white">
       <div className="mx-auto grid w-full max-w-[1240px] gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.2fr_2fr] lg:px-10 lg:py-20">
         <div>
-          <Link href="/" className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#0a3975]"><Plane className="h-5 w-5 -rotate-12" /></span>
-            <span><span className="block text-lg font-black tracking-[.09em]">YODHUB</span><span className="block text-[10px] font-bold tracking-[.42em] text-[#e4a31b]">TRAVEL</span></span>
+          <Link href="/" aria-label="Yodhub Travel home" className="inline-flex rounded-3xl bg-white p-4 shadow-[0_18px_40px_rgba(0,0,0,.25)]">
+            <img src="/yodhub-logo-full.png" alt="Yodhub Travel — Explore, Discover, Experience" className="h-32 w-auto" />
           </Link>
           <p className="mt-6 max-w-sm text-base leading-7 text-[#a9bad0]">Affordable agent service. Study, work, visit, and conference travel, with all the guidance handled on your behalf.</p>
           <div className="mt-7 space-y-3 text-sm text-[#b9c7d8]">

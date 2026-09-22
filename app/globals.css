@@ -89,9 +89,17 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: "Segoe UI", Arial, Helvetica, sans-serif;
+  --font-sans: "Twemoji Country Flags", "Segoe UI", Arial, Helvetica, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+}
+
+/* Windows has no flag emojis (it shows "IT", "CN"…). This font only covers the flag letters, so all other text is untouched. */
+@font-face {
+  font-family: "Twemoji Country Flags";
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+  src: url("https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.woff2") format("woff2");
+  font-display: swap;
 }
 
 * { box-sizing: border-box; }
@@ -135,4 +143,32 @@ body {
 .globe-toggle:hover { background: #ffffff15; }
 .globe-toggle:focus-visible { outline: 2px solid #efb342; outline-offset: 3px; }
 .globe-loading { position: absolute; inset: 0 0 50px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; color: #b7cde7; font-size: 14px; }
+/* Destination strip that scrolls sideways forever. The list is rendered twice so the loop is seamless. */
+.marquee { mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
+.marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.float-card { animation: float 6s ease-in-out infinite; }
+.float-card-delay { animation-delay: -3s; }
+@keyframes float { 50% { transform: translateY(-10px); } }
+
+.telegram-fab::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #229ed9; z-index: -1; animation: pulse-ring 2.4s ease-out infinite; }
+@keyframes pulse-ring { from { transform: scale(1); opacity: .55; } to { transform: scale(1.35); opacity: 0; } }
+
+.shine { position: relative; overflow: hidden; }
+.shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.28) 50%, transparent 65%); transform: translateX(-100%); transition: transform .8s; }
+.shine:hover::after { transform: translateX(100%); }
+
+/* Sections fade up as they scroll into view (browsers without scroll timelines just show them).
+   Ancestors of .reveal must use overflow: clip, not hidden — hidden creates a scroll container and freezes the timeline. */
+@supports (animation-timeline: view()) {
+  .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% cover 22%; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(36px); } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .float-card, .telegram-fab::before, .reveal { animation: none !important; }
+}
+
 @media (max-width: 639px) { .travel-globe { max-width: 390px; } .globe-label { font-size: 10px; } .globe-label-origin { font-size: 12px; } }
