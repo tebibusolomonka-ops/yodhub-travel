@@ -4,6 +4,7 @@ import { OpportunityBrowser } from "@/components/opportunity-browser";
 import { ProofGallery } from "@/components/proof-gallery";
 import { TravelGlobe } from "@/components/travel-globe";
 import { SiteHeader } from "@/components/site-header";
+import { TikTokIcon } from "@/components/tiktok-icon";
 import { proofs, proofsReady } from "@/lib/proofs";
 import { services } from "@/lib/services";
 import { contact } from "@/lib/contact";
@@ -219,9 +220,12 @@ export default function Home() {
             <div>
               <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#fff1c2]">Join the community</p>
               <h2 className="mt-3 max-w-xl text-3xl font-black tracking-[-0.03em] sm:text-4xl">New opportunities land on Telegram first.</h2>
-              <p className="mt-4 max-w-lg text-white/80">Follow the channel, ask questions in the group, or message us directly.</p>
+              <p className="mt-4 max-w-lg text-white/80">Follow the channel, ask questions in the group, message us directly, or follow us on TikTok.</p>
               <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 font-extrabold text-[#0a5f8c] transition hover:-translate-y-0.5">
                 <Send className="h-5 w-5" /> Message {contact.telegram}
+              </a>
+              <a href={contact.tiktok.href} target="_blank" rel="noreferrer" className="ml-3 mt-7 inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-4 font-extrabold text-white transition hover:bg-white/15">
+                <TikTokIcon className="h-5 w-5" /> TikTok
               </a>
             </div>
             <ul className="grid gap-3">

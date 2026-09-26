@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Phone, Send } from "lucide-react";
 import { contact } from "@/lib/contact";
+import { TikTokIcon } from "@/components/tiktok-icon";
 import { proofsReady } from "@/lib/proofs";
 
 const columns = [
@@ -23,6 +24,7 @@ export function SiteFooter() {
             <a href={contact.phoneHref} className="flex items-center gap-3 hover:text-white"><Phone className="h-4 w-4 text-[#e4a31b]" /> {contact.phone}</a>
             <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-white"><Send className="h-4 w-4 text-[#e4a31b]" /> {contact.telegram}</a>
             {contact.channels.map((channel) => <a key={channel.href} href={channel.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-white"><Send className="h-4 w-4 text-[#e4a31b]" /> {channel.label}</a>)}
+            <a href={contact.tiktok.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-white"><TikTokIcon className="h-4 w-4 text-[#e4a31b]" /> TikTok {contact.tiktok.handle}</a>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
