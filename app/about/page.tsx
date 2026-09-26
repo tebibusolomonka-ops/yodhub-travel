@@ -23,7 +23,7 @@ export default function AboutPage() {
           <h2 className="mt-4 text-4xl font-black tracking-[-.04em]">Know what is required before you commit.</h2>
           <p className="mt-6 text-lg leading-8 text-[#5e728a]">Every opportunity shows who can apply, what&apos;s included, and which documents you need. You prepare properly, and we take care of the applications, appointments, and visa process on your behalf.</p>
           <ul className="mt-8 space-y-4">
-            {["Study in Italy, China, India, Dubai, Austria, Russia, and Turkey", "Work in Russia, Belarus, Serbia, Albania, and Turkey", "Visit Europe, China, Turkey, and Thailand", "Conferences all across the world"].map((item) => <li key={item} className="flex items-center gap-3 font-bold"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fff0c8] text-[#9b6800]"><Check className="h-4 w-4" /></span>{item}</li>)}
+            {["Study in Italy, China, India, Dubai, Austria, Russia, Turkey, and other countries", "Work in Russia, Turkey, Belarus, Dubai, Albania, and Serbia", "Visit Europe, China, Turkey, and Thailand", "Conferences all across the world"].map((item) => <li key={item} className="flex items-center gap-3 font-bold"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fff0c8] text-[#9b6800]"><Check className="h-4 w-4" /></span>{item}</li>)}
           </ul>
         </div>
       </section>

@@ -6,7 +6,6 @@ export type Opportunity = {
   flag: string;
   city: string;
   institution: string;
-  deadline: string;
   intake: string;
   fee: string;
   featured?: boolean;
@@ -20,6 +19,9 @@ export type Opportunity = {
   steps: string[];
 };
 
+const visitRequirements = ["Valid passport", "Bank statement", "Business license"];
+const visitSteps = ["Travel plan review", "Document preparation", "Appointment and application", "Visa follow-up"];
+
 const allOpportunities: Opportunity[] = [
   {
     slug: "italy-scholarship-2026",
@@ -29,7 +31,6 @@ const allOpportunities: Opportunity[] = [
     flag: "🇮🇹",
     city: "Multiple cities",
     institution: "Italian universities & programs",
-    deadline: "Contact us for the current intake",
     intake: "Next academic intake",
     fee: "Full tuition fee covered",
     featured: true,
@@ -51,20 +52,19 @@ const allOpportunities: Opportunity[] = [
     flag: "🇨🇳",
     city: "Universities across China",
     institution: "Multiple universities & programs",
-    deadline: "Contact us for the current intake",
-    intake: "2026/27 academic year",
+    intake: "Different intakes available",
     fee: "Fully funded & partial",
     featured: true,
-    description: "Study in China with fully funded and partial scholarship opportunities at various universities across the country. Open to high school graduates through master's degree holders, with a short document list and guided application process.",
+    description: "Study in China with fully funded and partial scholarship opportunities at various universities across the country. Universities have different intakes through the year, so ask us which one fits you. Open to high school graduates through master's degree holders.",
     highlights: [
       { label: "Scholarship", value: "Fully funded & partial" },
-      { label: "Universities", value: "Across China" },
-      { label: "Documents", value: "Only 3 required" },
+      { label: "Intakes", value: "Different intakes" },
+      { label: "Documents", value: "Only 2 required" },
     ],
-    benefits: ["Fully funded & partial scholarships", "Multiple universities & programs", "Fast, guided application process", "Quality education and international experience"],
+    benefits: ["Fully funded & partial scholarships", "Multiple universities & programs", "Different intakes through the year", "Fast, guided application process"],
     eligibility: ["Grade 12 / high school graduates", "Diploma holders", "Bachelor's degree holders", "Master's degree holders"],
-    requirements: ["Passport", "Academic transcript", "Police clearance certificate"],
-    steps: ["Eligibility review", "Program & university matching", "Scholarship application", "Admission letter and student visa guidance"],
+    requirements: ["Passport", "Academic transcript"],
+    steps: ["Eligibility review", "Program, university & intake matching", "Scholarship application", "Admission letter and student visa guidance"],
   },
   {
     slug: "czech-government-scholarship",
@@ -74,7 +74,6 @@ const allOpportunities: Opportunity[] = [
     flag: "🇨🇿",
     city: "Czech public universities",
     institution: "Funded by the Czech Government",
-    deadline: "Contact us for the next round",
     intake: "Next academic year",
     fee: "Fully funded",
     description: "A fully funded Czech Government scholarship for students from developing countries to complete a master's or PhD degree at Czech public universities. Programs are offered in English and Czech, and funding is also available for a one-year Czech language course.",
@@ -96,7 +95,6 @@ const allOpportunities: Opportunity[] = [
     flag: "🇷🇺",
     city: "Russia",
     institution: "Direct company connection",
-    deadline: "Rolling applications",
     intake: "2–3 months processing",
     fee: "$541 – $1,783 / month",
     // Hidden until the client confirms the employer's name and contract (matches the Alabuga Start recruitment pattern).
@@ -120,7 +118,6 @@ const allOpportunities: Opportunity[] = [
     flag: "🇧🇾",
     city: "Belarus",
     institution: "Approved employers",
-    deadline: "Rolling applications",
     intake: "Fast processing",
     fee: "Competitive pay",
     description: "Work and live in Belarus. Our work visa service connects skilled and unskilled workers with approved employers, handles the work permit and visa process, and takes the stress out of relocation.",
@@ -133,6 +130,82 @@ const allOpportunities: Opportunity[] = [
     eligibility: ["Skilled workers", "Unskilled workers"],
     requirements: ["Valid passport", "Full document list shared after your profile review"],
     steps: ["Profile review", "Employer matching", "Work permit and visa processing", "Relocation"],
+  },
+  {
+    slug: "europe-schengen-visit-visa",
+    type: "Visit & tourism",
+    title: "Schengen Visit Visa",
+    country: "Europe (Schengen)",
+    flag: "🇪🇺",
+    city: "Schengen countries",
+    institution: "Tourist & business visit",
+    intake: "Apply year-round",
+    fee: "Contact us for the price",
+    description: "Visit Europe for tourism or business. We check your travel plan, prepare your supporting documents, and guide you through the appointment and visa application.",
+    requirements: visitRequirements,
+    steps: visitSteps,
+  },
+  {
+    slug: "china-visit-visa",
+    type: "Visit & tourism",
+    title: "China Visit Visa",
+    country: "China",
+    flag: "🇨🇳",
+    city: "China",
+    institution: "Tourist & business visit",
+    intake: "Apply year-round",
+    fee: "Contact us for the price",
+    description: "Visit China for tourism or business. We prepare your documents and handle the visa application on your behalf.",
+    requirements: visitRequirements,
+    steps: visitSteps,
+  },
+  {
+    slug: "turkey-visit-visa",
+    type: "Visit & tourism",
+    title: "Turkey Visit Visa",
+    country: "Turkey",
+    flag: "🇹🇷",
+    city: "Turkey",
+    institution: "Tourist & business visit",
+    intake: "Apply year-round",
+    fee: "Contact us for the price",
+    description: "Visit Turkey for tourism or business. We prepare your documents and handle the visa application on your behalf.",
+    requirements: visitRequirements,
+    steps: visitSteps,
+  },
+  {
+    slug: "thailand-visit-visa",
+    type: "Visit & tourism",
+    title: "Thailand Visit Visa",
+    country: "Thailand",
+    flag: "🇹🇭",
+    city: "Thailand",
+    institution: "Tourist & business visit",
+    intake: "Apply year-round",
+    fee: "Contact us for the price",
+    description: "Visit Thailand for tourism or business. We prepare your documents and handle the visa application on your behalf.",
+    requirements: visitRequirements,
+    steps: visitSteps,
+  },
+  {
+    slug: "international-conferences",
+    type: "Conferences",
+    title: "International Conferences",
+    country: "Worldwide",
+    flag: "🌍",
+    city: "All across the world",
+    institution: "Whenever a conference is available",
+    intake: "Whenever available",
+    fee: "Contact us for the price",
+    description: "Attend conferences all across the world, such as youth summits, leadership forums, and academic or professional conferences. We post new conferences on our Telegram channel whenever they are available, then handle registration and travel documents on your behalf.",
+    highlights: [
+      { label: "Where", value: "Worldwide" },
+      { label: "When", value: "Whenever available" },
+      { label: "Documents", value: "Only 2 required" },
+    ],
+    benefits: ["Youth summits", "Leadership forums", "Academic & professional conferences", "Registration and travel documents handled for you"],
+    requirements: ["Valid passport", "Extracurricular activity certificates"],
+    steps: ["Choose a conference", "Eligibility review", "Registration", "Visa and travel guidance"],
   },
 ];
 

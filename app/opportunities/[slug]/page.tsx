@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, Clock3, Gift, Globe2, MapPin, Phone, Send, Tag, UserCheck, WalletCards } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Check, FileText, Gift, Globe2, MapPin, Phone, Send, Tag, UserCheck, WalletCards } from "lucide-react";
 import { contact } from "@/lib/contact";
 import { getOpportunity, opportunities } from "@/lib/opportunities";
 import { SiteHeader } from "@/components/site-header";
@@ -29,8 +29,8 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
       <div className="mx-auto grid max-w-[1180px] gap-8 px-5 pb-24 sm:px-8 lg:-mt-16 lg:grid-cols-[1fr_350px]">
         <article className="rounded-[2rem] border border-[#dde6f0] bg-white p-6 shadow-[0_18px_50px_rgba(8,35,76,.08)] sm:p-10">
           <div className="grid gap-4 border-b border-[#e6ecf3] pb-8 sm:grid-cols-3">
-            <div className="rounded-xl bg-[#f3f7fb] p-4"><CalendarDays className="h-5 w-5 text-[#bd7c00]" /><p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#788ba1]">Deadline</p><p className="mt-1 font-extrabold">{item.deadline}</p></div>
-            <div className="rounded-xl bg-[#f3f7fb] p-4"><Clock3 className="h-5 w-5 text-[#bd7c00]" /><p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#788ba1]">Start</p><p className="mt-1 font-extrabold">{item.intake}</p></div>
+            <div className="rounded-xl bg-[#f3f7fb] p-4"><CalendarDays className="h-5 w-5 text-[#bd7c00]" /><p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#788ba1]">Timing</p><p className="mt-1 font-extrabold">{item.intake}</p></div>
+            <div className="rounded-xl bg-[#f3f7fb] p-4"><FileText className="h-5 w-5 text-[#bd7c00]" /><p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#788ba1]">Documents</p><p className="mt-1 font-extrabold">{item.requirements.length === 1 ? "1 item" : `${item.requirements.length} items`} to prepare</p></div>
             <div className="rounded-xl bg-[#f3f7fb] p-4"><MapPin className="h-5 w-5 text-[#bd7c00]" /><p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#788ba1]">Location</p><p className="mt-1 font-extrabold">{item.city}</p></div>
           </div>
 

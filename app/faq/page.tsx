@@ -5,7 +5,7 @@ import { InnerHero } from "@/components/inner-hero";
 const faqs = [
   ["How do I apply?", "Open an opportunity, check the requirements, and complete the short form. At the end, your answers are copied into a message that you send to Yodhub on Telegram."],
   ["When do I send my documents?", "Only after we review your application. Get the documents on the checklist ready, and we'll tell you how to send them."],
-  ["Which countries do you cover?", "Study: Italy, China, India, Dubai, Austria, Russia, and Turkey. Work: Russia, Belarus, Serbia, Albania, and Turkey. Visit: Europe, China, Turkey, and Thailand. Conferences: anywhere in the world, whenever one is available."],
+  ["Which countries do you cover?", "Study: Italy, China, India, Dubai, Austria, Russia, Turkey, and other countries on request. Work: Russia, Turkey, Belarus, Dubai, Albania, and Serbia. Visit: Europe, China, Turkey, and Thailand. Conferences: anywhere in the world, whenever one is available."],
   ["Is your service expensive?", "No. We are an affordable agent service, and we handle all the guidance on your behalf."],
   ["Can you guarantee my visa?", "No agent can. The embassy makes the final decision. We make sure your application and documents are as strong as possible."],
   ["Where can I see new opportunities?", "New opportunities are posted first on our Telegram channel, @yodhubtravel. Italy applicants also have their own group, @ethitalya."],

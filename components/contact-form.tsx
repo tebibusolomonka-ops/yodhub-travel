@@ -41,7 +41,7 @@ export function ContactForm() {
         <label className="grid gap-2 text-sm font-bold">Phone number<Input required name="phone" type="tel" placeholder="+251 9…" className="h-12 rounded-xl px-4 font-normal" /></label>
         <label className="grid gap-2 text-sm font-bold sm:col-span-2">What do you need help with?
           <select required name="service" className="h-12 rounded-xl border border-[#e1e6eb] bg-white px-4 font-normal outline-none focus:ring-2 focus:ring-[#d9a020]/30">
-            <option value="">Choose a service</option><option>Study abroad</option><option>Work abroad</option><option>Visit & tourism</option><option>Conferences</option>
+            <option value="">Choose a service</option><option>Study abroad</option><option>Work abroad</option><option>Visit & tourism</option><option>Conferences</option><option>Other</option>
           </select>
         </label>
         <label className="grid gap-2 text-sm font-bold sm:col-span-2">Message<textarea required name="message" placeholder="Tell us briefly about your plan" rows={5} className="rounded-xl border border-[#e1e6eb] px-4 py-3 font-normal outline-none focus:ring-2 focus:ring-[#d9a020]/30" /></label>

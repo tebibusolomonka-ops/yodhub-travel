@@ -15,6 +15,8 @@ const labels: Record<string, string> = {
   city: "Current city",
   nationality: "Nationality",
   qualification: "Highest qualification",
+  studyField: "Field of study",
+  studyFieldOther: "Field of study (other)",
   graduationYear: "Graduation year",
   english: "English level",
   startPeriod: "Preferred start",
@@ -22,8 +24,11 @@ const labels: Record<string, string> = {
   motivation: "Why I'm interested",
 };
 
+const studyFields = ["Medicine & health sciences", "Engineering", "IT & computer science", "Business & economics", "Law", "Social sciences", "Natural sciences", "Arts & design", "Languages"];
+
 export function ApplicationForm({ opportunity }: { opportunity: Opportunity }) {
   const [step, setStep] = useState(1);
+  const [studyField, setStudyField] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -31,6 +36,7 @@ export function ApplicationForm({ opportunity }: { opportunity: Opportunity }) {
     event.preventDefault();
     const next = { ...answers };
     new FormData(event.currentTarget).forEach((value, key) => { next[key] = String(value); });
+    if (next.studyField !== "Other") delete next.studyFieldOther;
     setAnswers(next);
     setStep(step + 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -70,8 +76,9 @@ export function ApplicationForm({ opportunity }: { opportunity: Opportunity }) {
         <div className="h-full rounded-full bg-[#e3a017] transition-all" style={{ width: `${step / 3 * 100}%` }} />
       </div>
 
+      {/* Each step gets its own key so React doesn't reuse the previous step's inputs (and their typed values). */}
       {step === 1 ? (
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+        <div key="step-1" className="mt-8 grid gap-5 sm:grid-cols-2">
           <label className="grid gap-2 text-sm font-bold">First name<Input required name="firstName" defaultValue={saved("firstName")} placeholder="Your first name" className={field} /></label>
           <label className="grid gap-2 text-sm font-bold">Last name<Input required name="lastName" defaultValue={saved("lastName")} placeholder="Your last name" className={field} /></label>
           <label className="grid gap-2 text-sm font-bold">Email address<Input type="email" name="email" defaultValue={saved("email")} placeholder="name@example.com (optional)" className={field} /></label>
@@ -81,8 +88,20 @@ export function ApplicationForm({ opportunity }: { opportunity: Opportunity }) {
           <label className="grid gap-2 text-sm font-bold sm:col-span-2">Nationality<Input required name="nationality" defaultValue={saved("nationality")} placeholder="Your nationality" className={field} /></label>
         </div>
       ) : step === 2 ? (
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+        <div key="step-2" className="mt-8 grid gap-5 sm:grid-cols-2">
           <label className="grid gap-2 text-sm font-bold sm:col-span-2">Highest qualification<Input required name="qualification" defaultValue={saved("qualification")} placeholder="Example: Grade 12, Diploma, BSc in Computer Science" className={field} /></label>
+          {opportunity.type === "Study abroad" && (
+            <>
+              <label className={`grid gap-2 text-sm font-bold ${studyField === "Other" ? "" : "sm:col-span-2"}`}>Field of study you want
+                <select required name="studyField" value={studyField} onChange={(event) => setStudyField(event.target.value)} className={select}>
+                  <option value="">Choose a field</option>
+                  {studyFields.map((item) => <option key={item}>{item}</option>)}
+                  <option>Other</option>
+                </select>
+              </label>
+              {studyField === "Other" && <label className="grid gap-2 text-sm font-bold">Your field of study<Input required autoFocus name="studyFieldOther" defaultValue={saved("studyFieldOther")} placeholder="Type your field" className={field} /></label>}
+            </>
+          )}
           <label className="grid gap-2 text-sm font-bold">Graduation year<Input required name="graduationYear" defaultValue={saved("graduationYear")} placeholder="Example: 2025" className={field} /></label>
           <label className="grid gap-2 text-sm font-bold">English level
             <select required name="english" defaultValue={saved("english") ?? ""} className={select}><option value="">Choose level</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Test result available</option></select>
@@ -94,7 +113,7 @@ export function ApplicationForm({ opportunity }: { opportunity: Opportunity }) {
           <label className="grid gap-2 text-sm font-bold sm:col-span-2">Why are you interested?<textarea required name="motivation" defaultValue={saved("motivation")} rows={4} placeholder="Briefly describe your goal" className="rounded-xl border border-[#dbe4ee] px-4 py-3 font-normal outline-none focus:ring-2 focus:ring-[#d9a020]/30" /></label>
         </div>
       ) : (
-        <div className="mt-8">
+        <div key="step-3" className="mt-8">
           <div className="rounded-2xl border border-[#cfdae7] bg-[#f7f9fc] p-5 sm:p-7">
             <div className="flex items-start gap-4"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#e8f1fb] text-[#0a4b91]"><ShieldCheck className="h-5 w-5" /></span><div><p className="font-extrabold">Get these ready, but don&apos;t send them yet</p><p className="mt-1 text-sm leading-6 text-[#6a7d93]">After we review your application, we&apos;ll tell you exactly how to send your documents safely.</p></div></div>
             <div className="mt-6 grid gap-3">

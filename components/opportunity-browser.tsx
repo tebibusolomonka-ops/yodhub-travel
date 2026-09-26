@@ -83,13 +83,13 @@ export function OpportunityBrowser({ limit }: { limit?: number }) {
               <span className="text-3xl" aria-hidden="true">{item.flag}</span>
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-[#b77800]">{item.type}</p>
-                <p className="mt-1 text-sm text-[#63758c]">{item.country} · {item.city}</p>
+                <p className="mt-1 text-sm text-[#63758c]">{item.city === item.country ? item.country : `${item.country} · ${item.city}`}</p>
               </div>
             </div>
             <h3 className="mt-6 max-w-[420px] text-2xl font-black tracking-[-0.025em] text-[#071e42]">{item.title}</h3>
             <p className="mt-2 text-sm leading-6 text-[#64748b]">{item.institution}</p>
             <div className="mt-6 grid grid-cols-2 gap-3 border-y border-[#edf1f6] py-5 text-sm">
-              <span className="flex items-center gap-2 text-[#52667e]"><CalendarDays className="h-4 w-4 text-[#ba7b00]" />{item.deadline}</span>
+              <span className="flex items-center gap-2 text-[#52667e]"><CalendarDays className="h-4 w-4 text-[#ba7b00]" />{item.intake}</span>
               <span className="flex items-center gap-2 text-[#52667e]"><WalletCards className="h-4 w-4 text-[#ba7b00]" />{item.fee}</span>
             </div>
             <Link href={`/opportunities/${item.slug}`} className="mt-6 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">
