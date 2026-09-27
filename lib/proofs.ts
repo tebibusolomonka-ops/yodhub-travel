@@ -14,6 +14,7 @@ export type Proof = {
 };
 
 export const proofs: Proof[] = [
+  { image: "/proofs/italy-study-3.webp", country: "Italy", flag: "🇮🇹", visa: "Type D study visa", category: "Study", issued: "Oct 2025" },
   { image: "/proofs/italy-study-2.webp", country: "Italy", flag: "🇮🇹", visa: "Type D study visa", category: "Study", issued: "Sep 2025" },
   { image: "/proofs/greece-schengen-1.webp", country: "Greece", flag: "🇬🇷", visa: "Schengen tourist visa", category: "Tourist", issued: "Aug 2025" },
   { image: "/proofs/turkey-tourist-2.webp", country: "Türkiye", flag: "🇹🇷", visa: "Tourist visa", category: "Tourist", issued: "Apr 2025" },
