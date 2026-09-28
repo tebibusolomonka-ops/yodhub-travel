@@ -3,26 +3,21 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Check, ClipboardCheck } from "lucide-react";
 import { InnerHero } from "@/components/inner-hero";
 import { getService, services } from "@/lib/services";
-import { opportunities } from "@/lib/opportunities";
+import { opportunitiesIn, opportunityHref } from "@/lib/opportunities";
 import { contact } from "@/lib/contact";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
-
-const serviceType = {
-  "study-abroad": "Study abroad",
-  "work-abroad": "Work abroad",
-  "visit-tourism": "Visit & tourism",
-  "conferences": "Conferences",
-} as const;
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
   const Icon = service.icon;
-  const matches = opportunities.filter((item) => item.type === serviceType[slug as keyof typeof serviceType]);
+  const matches = opportunitiesIn(service.slug);
 
   return (
     <main className="min-h-screen bg-[#f4f7fb] text-[#071e42]">
@@ -56,7 +51,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div><p className="text-sm font-extrabold uppercase tracking-[.17em] text-[#b77900]">Available now</p><h2 className="mt-3 text-3xl font-black tracking-[-.035em] sm:text-4xl">Open {service.title.toLowerCase()} opportunities</h2></div>
             <Link href="/opportunities" className="font-extrabold text-[#0a4383]">Browse every opportunity →</Link>
           </div>
-          {matches.length ? <div className="mt-9 grid gap-5 md:grid-cols-2">{matches.map((item) => <Link key={item.slug} href={`/opportunities/${item.slug}`} className="group rounded-2xl border border-[#dce5ef] bg-[#f7f9fc] p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg"><p className="text-sm font-bold text-[#a56d00]">{item.flag} {item.country}</p><h3 className="mt-3 text-2xl font-black">{item.title}</h3><p className="mt-2 text-sm text-[#667a91]">{item.institution}</p><span className="mt-5 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">View requirements <ArrowRight className="h-4 w-4" /></span></Link>)}</div> : <div className="mt-9 rounded-2xl border border-dashed border-[#cbd8e6] bg-[#f7f9fc] p-8"><h3 className="font-black">New opportunities are posted on Telegram first.</h3><p className="mt-2 text-[#63768c]">Join the <a href={contact.channels[0].href} target="_blank" rel="noreferrer" className="font-bold text-[#0a4383] underline">Yodhub Travel channel</a> or message <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="font-bold text-[#0a4383] underline">{contact.telegram}</a> to ask about {service.title.toLowerCase()} in any of the destinations above.</p></div>}
+          {matches.length ? <div className="mt-9 grid gap-5 md:grid-cols-2">{matches.map((item) => <Link key={opportunityHref(item)} href={opportunityHref(item)} className="group rounded-2xl border border-[#dce5ef] bg-[#f7f9fc] p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg"><p className="text-sm font-bold text-[#a56d00]">{item.flag} {item.country}</p><h3 className="mt-3 text-2xl font-black">{item.title}</h3><p className="mt-2 text-sm text-[#667a91]">{item.institution}</p><span className="mt-5 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">View requirements <ArrowRight className="h-4 w-4" /></span></Link>)}</div> : <div className="mt-9 rounded-2xl border border-dashed border-[#cbd8e6] bg-[#f7f9fc] p-8"><h3 className="font-black">New opportunities are posted on Telegram first.</h3><p className="mt-2 text-[#63768c]">Join the <a href={contact.channels[0].href} target="_blank" rel="noreferrer" className="font-bold text-[#0a4383] underline">Yodhub Travel channel</a> or message <a href={contact.telegramHref} target="_blank" rel="noreferrer" className="font-bold text-[#0a4383] underline">{contact.telegram}</a> to ask about {service.title.toLowerCase()} in any of the destinations above.</p></div>}
         </div>
       </section>
     </main>

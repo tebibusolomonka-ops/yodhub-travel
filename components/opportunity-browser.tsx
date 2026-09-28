@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Search, WalletCards } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { opportunities } from "@/lib/opportunities";
+import { opportunities, opportunityHref } from "@/lib/opportunities";
 
 export function OpportunityBrowser({ limit }: { limit?: number }) {
   const [query, setQuery] = useState("");
@@ -92,7 +92,7 @@ export function OpportunityBrowser({ limit }: { limit?: number }) {
               <span className="flex items-center gap-2 text-[#52667e]"><CalendarDays className="h-4 w-4 text-[#ba7b00]" />{item.intake}</span>
               <span className="flex items-center gap-2 text-[#52667e]"><WalletCards className="h-4 w-4 text-[#ba7b00]" />{item.fee}</span>
             </div>
-            <Link href={`/opportunities/${item.slug}`} className="mt-6 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">
+            <Link href={opportunityHref(item)} className="mt-6 inline-flex items-center gap-2 font-extrabold text-[#0a4383]">
               View requirements <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </Link>
           </article>

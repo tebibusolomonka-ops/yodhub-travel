@@ -2,16 +2,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CalendarDays, Check, FileText, Gift, Globe2, MapPin, Phone, Send, Tag, UserCheck, WalletCards } from "lucide-react";
 import { contact } from "@/lib/contact";
-import { getOpportunity, opportunities } from "@/lib/opportunities";
+import { applyHref, getOpportunity, opportunitiesIn, type Category } from "@/lib/opportunities";
 import { SiteHeader } from "@/components/site-header";
 
-export function generateStaticParams() {
-  return opportunities.map((item) => ({ slug: item.slug }));
+type Params = { params: Promise<{ slug: string }> };
+
+// Each service folder (app/study, app/work, app/visit, app/conferences) builds its detail route from this.
+export function opportunityRoute(category: Category) {
+  return {
+    generateStaticParams: () => opportunitiesIn(category).map((item) => ({ slug: item.slug })),
+    Page: async ({ params }: Params) => <OpportunityDetail category={category} slug={(await params).slug} />,
+  };
 }
 
-export default async function OpportunityPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const item = getOpportunity(slug);
+function OpportunityDetail({ category, slug }: { category: Category; slug: string }) {
+  const item = getOpportunity(category, slug);
   if (!item) notFound();
 
   return (
@@ -86,7 +91,7 @@ export default async function OpportunityPage({ params }: { params: Promise<{ sl
               <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><Tag className="h-4 w-4" /> Type</span><strong className="text-right">{item.type}</strong></div>
               <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-2 text-white/70"><WalletCards className="h-4 w-4" /> Fee</span><strong className="text-right">{item.fee}</strong></div>
             </div>
-            <Link href={`/apply/${item.slug}`} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#edaa1d] px-6 py-4 font-black text-[#071e42] transition hover:bg-[#f7bd43]">Start application <ArrowRight className="h-4 w-4" /></Link>
+            <Link href={applyHref(item)} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#edaa1d] px-6 py-4 font-black text-[#071e42] transition hover:bg-[#f7bd43]">Start application <ArrowRight className="h-4 w-4" /></Link>
             <p className="mt-4 text-center text-xs leading-5 text-white/55">Takes about 3 minutes. You&apos;ll send it to us on Telegram.</p>
           </div>
           <div className="mt-5 rounded-[1.5rem] border border-[#dde6f0] bg-white p-6">

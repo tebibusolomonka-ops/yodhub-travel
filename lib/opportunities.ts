@@ -62,7 +62,7 @@ const visitSteps = ["Travel plan review", "Document preparation", "Appointment a
 
 const allOpportunities: Opportunity[] = [
   {
-    slug: "italy-scholarship-2026",
+    slug: "italy",
     type: "Study abroad",
     title: "Full Tuition Fee Scholarship",
     country: "Italy",
@@ -83,7 +83,7 @@ const allOpportunities: Opportunity[] = [
     steps: ["Eligibility review", "Document preparation", "University & scholarship application", "Study visa guidance"],
   },
   {
-    slug: "china-scholarship-2026",
+    slug: "china",
     type: "Study abroad",
     title: "China Scholarship 2026/27",
     country: "China",
@@ -105,7 +105,7 @@ const allOpportunities: Opportunity[] = [
     steps: ["Eligibility review", "Program, university & intake matching", "Scholarship application", "Admission letter and student visa guidance"],
   },
   {
-    slug: "czech-government-scholarship",
+    slug: "czech",
     type: "Study abroad",
     title: "Czech Government Scholarship",
     country: "Czech Republic",
@@ -126,7 +126,7 @@ const allOpportunities: Opportunity[] = [
     steps: ["Eligibility review", "Program selection", "Scholarship nomination & application", "Admission and visa guidance"],
   },
   {
-    slug: "study-other-countries",
+    slug: "other",
     type: "Study abroad",
     title: "Study in Other Countries",
     country: "Worldwide",
@@ -145,13 +145,13 @@ const allOpportunities: Opportunity[] = [
     requirements: ["Passport", "Academic transcript", "Degree or high school certificate", "Full list depends on the country and program"],
     steps: ["Tell us your country and program", "University & scholarship matching", "Application on your behalf", "Admission and student visa guidance"],
   },
-  workVisa("russia-work-visa", "Russia", "🇷🇺"),
-  workVisa("turkey-work-visa", "Turkey", "🇹🇷"),
-  workVisa("dubai-work-visa", "Dubai", "🇦🇪"),
-  workVisa("albania-work-visa", "Albania", "🇦🇱"),
-  workVisa("serbia-work-visa", "Serbia", "🇷🇸"),
+  workVisa("russia", "Russia", "🇷🇺"),
+  workVisa("turkey", "Turkey", "🇹🇷"),
+  workVisa("dubai", "Dubai", "🇦🇪"),
+  workVisa("albania", "Albania", "🇦🇱"),
+  workVisa("serbia", "Serbia", "🇷🇸"),
   {
-    slug: "russia-work-visa-women-18-24",
+    slug: "russiaoffer",
     type: "Work abroad",
     title: "Russia Work Visa",
     country: "Russia",
@@ -174,7 +174,7 @@ const allOpportunities: Opportunity[] = [
     steps: ["Profile review", "Employer matching", "Contract and work permit processing", "Visa, flight, and arrival"],
   },
   {
-    slug: "belarus-work-visa",
+    slug: "belarus",
     type: "Work abroad",
     title: "Belarus Work Visa",
     country: "Belarus",
@@ -195,7 +195,7 @@ const allOpportunities: Opportunity[] = [
     steps: ["Profile review", "Employer matching", "Work permit and visa processing", "Relocation"],
   },
   {
-    slug: "europe-schengen-visit-visa",
+    slug: "europe",
     type: "Visit & tourism",
     title: "Schengen Visit Visa",
     country: "Europe (Schengen)",
@@ -209,7 +209,7 @@ const allOpportunities: Opportunity[] = [
     steps: visitSteps,
   },
   {
-    slug: "china-visit-visa",
+    slug: "china",
     type: "Visit & tourism",
     title: "China Visit Visa",
     country: "China",
@@ -223,7 +223,7 @@ const allOpportunities: Opportunity[] = [
     steps: visitSteps,
   },
   {
-    slug: "turkey-visit-visa",
+    slug: "turkey",
     type: "Visit & tourism",
     title: "Turkey Visit Visa",
     country: "Turkey",
@@ -237,7 +237,7 @@ const allOpportunities: Opportunity[] = [
     steps: visitSteps,
   },
   {
-    slug: "thailand-visit-visa",
+    slug: "thailand",
     type: "Visit & tourism",
     title: "Thailand Visit Visa",
     country: "Thailand",
@@ -251,7 +251,7 @@ const allOpportunities: Opportunity[] = [
     steps: visitSteps,
   },
   {
-    slug: "international-conferences",
+    slug: "worldwide",
     type: "Conferences",
     title: "International Conferences",
     country: "Worldwide",
@@ -270,14 +270,30 @@ const allOpportunities: Opportunity[] = [
     requirements: conferenceRequirements,
     steps: ["Choose a conference", "Eligibility review", "Registration", "Visa and travel guidance"],
   },
-  conference("istanbul-youth-summit", "Istanbul Youth Summit", "Turkey", "🇹🇷", "Istanbul", "A popular international youth summit in Istanbul that brings young people together for workshops, leadership sessions, and networking. We help you register and prepare your Turkey visa."),
+  conference("istanbul", "Istanbul Youth Summit", "Turkey", "🇹🇷", "Istanbul", "A popular international youth summit in Istanbul that brings young people together for workshops, leadership sessions, and networking. We help you register and prepare your Turkey visa."),
   conference("ayimun", "Asia Youth International MUN", "Malaysia", "🇲🇾", "Kuala Lumpur", "A Model United Nations conference in Asia where young people debate global issues as UN delegates. It is a common first international conference for Ethiopian students. We handle registration and visa guidance."),
-  conference("harvard-worldmun", "Harvard WorldMUN", "Worldwide", "🌍", "Host city changes every year", "Harvard's international Model United Nations conference, held in a different city around the world each year. We help you apply, register, and prepare the visa for that year's host country."),
-  conference("one-young-world-summit", "One Young World Summit", "Worldwide", "🌍", "Host city changes every year", "A global summit for young leaders, held in a different country each year. We help with your application, registration, and visa for the host country."),
+  conference("harvard", "Harvard WorldMUN", "Worldwide", "🌍", "Host city changes every year", "Harvard's international Model United Nations conference, held in a different city around the world each year. We help you apply, register, and prepare the visa for that year's host country."),
+  conference("oneyoungworld", "One Young World Summit", "Worldwide", "🌍", "Host city changes every year", "A global summit for young leaders, held in a different country each year. We help with your application, registration, and visa for the host country."),
 ];
 
 export const opportunities = allOpportunities.filter((opportunity) => !opportunity.hidden);
 
-export function getOpportunity(slug: string) {
-  return opportunities.find((opportunity) => opportunity.slug === slug);
+// Pages live at /<category>/<slug>, e.g. /study/china or /visit/china, so slugs only need to be unique within a category.
+export const categories = { "Study abroad": "study", "Work abroad": "work", "Visit & tourism": "visit", "Conferences": "conferences" } as const;
+export type Category = (typeof categories)[keyof typeof categories];
+
+export function opportunityHref(opportunity: Opportunity) {
+  return `/${categories[opportunity.type]}/${opportunity.slug}`;
+}
+
+export function applyHref(opportunity: Opportunity) {
+  return `/apply${opportunityHref(opportunity)}`;
+}
+
+export function opportunitiesIn(category: Category) {
+  return opportunities.filter((opportunity) => categories[opportunity.type] === category);
+}
+
+export function getOpportunity(category: Category, slug: string) {
+  return opportunitiesIn(category).find((opportunity) => opportunity.slug === slug);
 }

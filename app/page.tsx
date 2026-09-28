@@ -79,12 +79,12 @@ export default function Home() {
           <div className="relative">
             <TravelGlobe />
             {proofsReady && latestVisa && (
-              <Link href="/visa-results" className="float-card absolute -left-2 top-[12%] hidden items-center gap-3 rounded-2xl border border-white/15 bg-[#0b2752]/80 p-3 pr-5 shadow-2xl backdrop-blur-md sm:flex lg:-left-10">
+              <Link href="/visas" className="float-card absolute -left-2 top-[12%] hidden items-center gap-3 rounded-2xl border border-white/15 bg-[#0b2752]/80 p-3 pr-5 shadow-2xl backdrop-blur-md sm:flex lg:-left-10">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#16834d] text-white"><BadgeCheck className="h-5 w-5" /></span>
                 <span><span className="block text-sm font-extrabold">Visa approved</span><span className="block text-xs text-white/65">{latestVisa.flag} {latestVisa.country} · {latestVisa.visa}</span></span>
               </Link>
             )}
-            <Link href="/opportunities/italy-scholarship-2026" className="float-card float-card-delay absolute -right-2 bottom-[18%] hidden items-center gap-3 rounded-2xl border border-white/15 bg-[#0b2752]/80 p-3 pr-5 shadow-2xl backdrop-blur-md sm:flex lg:-right-6">
+            <Link href="/study/italy" className="float-card float-card-delay absolute -right-2 bottom-[18%] hidden items-center gap-3 rounded-2xl border border-white/15 bg-[#0b2752]/80 p-3 pr-5 shadow-2xl backdrop-blur-md sm:flex lg:-right-6">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eda91b] text-[#071c3c]"><GraduationCap className="h-5 w-5" /></span>
               <span><span className="block text-sm font-extrabold">Full tuition scholarship</span><span className="block text-xs text-white/65">🇮🇹 Italy · Bachelor&apos;s &amp; Master&apos;s</span></span>
             </Link>
@@ -168,7 +168,7 @@ export default function Home() {
             <p className="max-w-md text-base leading-7 text-[#63758c]">Study, tourist, and business visas for Italy, Greece, Türkiye, Russia, and China. Personal details are blurred to protect every client.</p>
           </div>
           <ProofGallery limit={3} />
-          <div className="mt-8 text-center"><Link href="/visa-results" className="inline-flex items-center gap-2 rounded-full border border-[#cdd8e5] bg-white px-6 py-3 font-extrabold text-[#0a4383] hover:bg-[#edf4fb]">See all visa results <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-8 text-center"><Link href="/visas" className="inline-flex items-center gap-2 rounded-full border border-[#cdd8e5] bg-white px-6 py-3 font-extrabold text-[#0a4383] hover:bg-[#edf4fb]">See all visa results <ArrowRight className="h-4 w-4" /></Link></div>
         </div>
       </section>}
 

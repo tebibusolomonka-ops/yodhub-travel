@@ -5,8 +5,8 @@ import { TikTokIcon } from "@/components/tiktok-icon";
 import { proofsReady } from "@/lib/proofs";
 
 const columns = [
-  { title: "Explore", links: [["Opportunities", "/opportunities"], ...(proofsReady ? [["Visa results", "/visa-results"]] : []), ["Services", "/services"], ["How it works", "/how-it-works"], ["FAQs", "/faq"]] },
-  { title: "Services", links: [["Study abroad", "/services/study-abroad"], ["Work abroad", "/services/work-abroad"], ["Visit & tourism", "/services/visit-tourism"], ["Conferences", "/services/conferences"]] },
+  { title: "Explore", links: [["Opportunities", "/opportunities"], ...(proofsReady ? [["Visa results", "/visas"]] : []), ["Services", "/services"], ["How it works", "/process"], ["FAQs", "/faq"]] },
+  { title: "Services", links: [["Study abroad", "/services/study"], ["Work abroad", "/services/work"], ["Visit & tourism", "/services/visit"], ["Conferences", "/services/conferences"]] },
   { title: "Company", links: [["About Yodhub", "/about"], ["Contact", "/contact"], ["Privacy", "/privacy"]] },
 ];
 

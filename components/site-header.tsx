@@ -5,9 +5,9 @@ import { proofsReady } from "@/lib/proofs";
 
 const links = [
   { href: "/opportunities", label: "Opportunities" },
-  ...(proofsReady ? [{ href: "/visa-results", label: "Visa results" }] : []),
+  ...(proofsReady ? [{ href: "/visas", label: "Visa results" }] : []),
   { href: "/services", label: "Services" },
-  { href: "/how-it-works", label: "How it works" },
+  { href: "/process", label: "How it works" },
   { href: "/about", label: "About us" },
 ];
 

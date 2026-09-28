@@ -2,16 +2,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ApplicationForm } from "@/components/application-form";
-import { getOpportunity, opportunities } from "@/lib/opportunities";
+import { categories, getOpportunity, opportunities, opportunityHref, type Category } from "@/lib/opportunities";
 import { SiteHeader } from "@/components/site-header";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return opportunities.map((item) => ({ slug: item.slug }));
+  return opportunities.map((item) => ({ category: categories[item.type], slug: item.slug }));
 }
 
-export default async function ApplyPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const item = getOpportunity(slug);
+export default async function ApplyPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const { category, slug } = await params;
+  const item = getOpportunity(category as Category, slug);
   if (!item) notFound();
 
   return (
@@ -19,7 +21,7 @@ export default async function ApplyPage({ params }: { params: Promise<{ slug: st
       <SiteHeader />
       <div className="mx-auto grid max-w-[1120px] gap-8 px-5 pt-10 sm:px-8 lg:grid-cols-[300px_1fr] lg:pt-14">
         <aside className="lg:pt-5">
-          <Link href={`/opportunities/${item.slug}`} className="mb-6 flex items-center gap-2 text-sm font-bold text-[#5f738a] hover:text-[#071e42]"><ArrowLeft className="h-4 w-4" /> Opportunity details</Link>
+          <Link href={opportunityHref(item)} className="mb-6 flex items-center gap-2 text-sm font-bold text-[#5f738a] hover:text-[#071e42]"><ArrowLeft className="h-4 w-4" /> Opportunity details</Link>
           <span className="text-3xl">{item.flag}</span>
           <p className="mt-4 text-xs font-black uppercase tracking-[0.15em] text-[#ac7200]">{item.type}</p>
           <h2 className="mt-2 text-2xl font-black tracking-[-0.025em] text-[#071e42]">{item.title}</h2>

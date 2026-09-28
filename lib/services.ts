@@ -2,7 +2,7 @@ import { BriefcaseBusiness, CalendarDays, GraduationCap, Plane } from "lucide-re
 
 export const services = [
   {
-    slug: "study-abroad",
+    slug: "study",
     title: "Study abroad",
     short: "University admissions, scholarships, and student visas",
     eyebrow: "Education pathways",
@@ -14,7 +14,7 @@ export const services = [
     journey: ["Choose a study opportunity", "Complete the eligibility form", "Prepare the listed documents", "Yodhub reviews and applies on your behalf"],
   },
   {
-    slug: "work-abroad",
+    slug: "work",
     title: "Work abroad",
     short: "Work visas and direct employer connections",
     eyebrow: "Career opportunities",
@@ -26,7 +26,7 @@ export const services = [
     journey: ["Select a work opportunity", "Describe your skills and experience", "Prepare the listed documents", "Yodhub processes your permit and visa"],
   },
   {
-    slug: "visit-tourism",
+    slug: "visit",
     title: "Visit & tourism",
     short: "Tourist visas for Europe, China, Turkey, and Thailand",
     eyebrow: "Short-term travel",
