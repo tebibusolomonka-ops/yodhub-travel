@@ -19,7 +19,45 @@ export type Opportunity = {
   steps: string[];
 };
 
-const visitRequirements = ["Valid passport", "Bank statement", "Business license"];
+const visitRequirements = ["Bank statement", "Business license"];
+const workRequirements = ["Valid passport", "Full document list shared after your profile review"];
+const workSteps = ["Profile review", "Employer matching", "Work permit and visa processing", "Travel and arrival"];
+const conferenceRequirements = ["Passport", "Extracurricular activity certificates"];
+const conferenceSteps = ["Check the next edition with us", "Eligibility review", "Registration", "Visa and travel guidance"];
+
+function workVisa(slug: string, country: string, flag: string): Opportunity {
+  return {
+    slug,
+    type: "Work abroad",
+    title: `${country} Work Visa`,
+    country,
+    flag,
+    city: country,
+    institution: "Direct employer connections",
+    intake: "Apply any time",
+    fee: "Contact us for jobs & salary",
+    description: `Work in ${country} through Yodhub's direct employer connections. Contact us for the current jobs, salaries, and contract details. We handle the work permit and visa process on your behalf.`,
+    requirements: workRequirements,
+    steps: workSteps,
+  };
+}
+
+function conference(slug: string, title: string, country: string, flag: string, city: string, description: string): Opportunity {
+  return {
+    slug,
+    type: "Conferences",
+    title,
+    country,
+    flag,
+    city,
+    institution: "Popular with Ethiopian applicants",
+    intake: "Yearly — ask us for the next date",
+    fee: "Contact us for the price",
+    description,
+    requirements: conferenceRequirements,
+    steps: conferenceSteps,
+  };
+}
 const visitSteps = ["Travel plan review", "Document preparation", "Appointment and application", "Visa follow-up"];
 
 const allOpportunities: Opportunity[] = [
@@ -88,7 +126,32 @@ const allOpportunities: Opportunity[] = [
     steps: ["Eligibility review", "Program selection", "Scholarship nomination & application", "Admission and visa guidance"],
   },
   {
-    slug: "russia-work-visa",
+    slug: "study-other-countries",
+    type: "Study abroad",
+    title: "Study in Other Countries",
+    country: "Worldwide",
+    flag: "🌍",
+    city: "USA, Canada, UK, Europe & more",
+    institution: "Universities in any country you choose",
+    intake: "Depends on the country",
+    fee: "Scholarships where available",
+    description: "Want to study somewhere not listed, like the USA, Canada, the UK, or elsewhere in Europe and Asia? Tell us your country and program, and we'll find the right university and scholarship options and handle the application and student visa on your behalf.",
+    highlights: [
+      { label: "Countries", value: "USA, Canada, UK & more" },
+      { label: "Levels", value: "Bachelor's, Master's & PhD" },
+      { label: "Support", value: "Admission to visa" },
+    ],
+    benefits: ["USA", "Canada", "United Kingdom", "Germany, France & the rest of Europe", "Asia and the Middle East", "Any other country you have in mind"],
+    requirements: ["Passport", "Academic transcript", "Degree or high school certificate", "Full list depends on the country and program"],
+    steps: ["Tell us your country and program", "University & scholarship matching", "Application on your behalf", "Admission and student visa guidance"],
+  },
+  workVisa("russia-work-visa", "Russia", "🇷🇺"),
+  workVisa("turkey-work-visa", "Turkey", "🇹🇷"),
+  workVisa("dubai-work-visa", "Dubai", "🇦🇪"),
+  workVisa("albania-work-visa", "Albania", "🇦🇱"),
+  workVisa("serbia-work-visa", "Serbia", "🇷🇸"),
+  {
+    slug: "russia-work-visa-women-18-24",
     type: "Work abroad",
     title: "Russia Work Visa",
     country: "Russia",
@@ -197,16 +260,20 @@ const allOpportunities: Opportunity[] = [
     institution: "Whenever a conference is available",
     intake: "Whenever available",
     fee: "Contact us for the price",
-    description: "Attend conferences all across the world, such as youth summits, leadership forums, and academic or professional conferences. We post new conferences on our Telegram channel whenever they are available, then handle registration and travel documents on your behalf.",
+    description: "Attend conferences all across the world, such as youth summits, Model United Nations, and leadership forums. See the popular examples below. We post new conferences on our Telegram channel whenever they are available, then handle registration and travel documents on your behalf.",
     highlights: [
       { label: "Where", value: "Worldwide" },
       { label: "When", value: "Whenever available" },
       { label: "Documents", value: "Only 2 required" },
     ],
-    benefits: ["Youth summits", "Leadership forums", "Academic & professional conferences", "Registration and travel documents handled for you"],
-    requirements: ["Valid passport", "Extracurricular activity certificates"],
+    benefits: ["Istanbul Youth Summit (Turkey)", "Asia Youth International MUN (Malaysia)", "Harvard WorldMUN (host city changes yearly)", "One Young World Summit (host city changes yearly)", "Registration and travel documents handled for you"],
+    requirements: conferenceRequirements,
     steps: ["Choose a conference", "Eligibility review", "Registration", "Visa and travel guidance"],
   },
+  conference("istanbul-youth-summit", "Istanbul Youth Summit", "Turkey", "🇹🇷", "Istanbul", "A popular international youth summit in Istanbul that brings young people together for workshops, leadership sessions, and networking. We help you register and prepare your Turkey visa."),
+  conference("ayimun", "Asia Youth International MUN", "Malaysia", "🇲🇾", "Kuala Lumpur", "A Model United Nations conference in Asia where young people debate global issues as UN delegates. It is a common first international conference for Ethiopian students. We handle registration and visa guidance."),
+  conference("harvard-worldmun", "Harvard WorldMUN", "Worldwide", "🌍", "Host city changes every year", "Harvard's international Model United Nations conference, held in a different city around the world each year. We help you apply, register, and prepare the visa for that year's host country."),
+  conference("one-young-world-summit", "One Young World Summit", "Worldwide", "🌍", "Host city changes every year", "A global summit for young leaders, held in a different country each year. We help with your application, registration, and visa for the host country."),
 ];
 
 export const opportunities = allOpportunities.filter((opportunity) => !opportunity.hidden);
